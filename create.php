@@ -19,6 +19,21 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
         //prepare query for execution
         $stmt = $conn->prepare($query);
 
+        // bind parameters
+        $stmt->bindParam(1,$CustomerName);
+        $stmt->bindParam(2,$ContactName);
+        $stmt->bindParam(3,$Address);
+        $stmt->bindParam(4,$City);
+        $stmt->bindParam(5,$PostalCode);
+        $stmt->bindParam(6,$Country);
+
+        //execute query
+        if($stmt->execute()) {
+            $msg = "<div class='alert alert-success'><strong>Record was saved!</strong></div>";
+        }
+        else {
+            $msg = "<div class='alert alert-danger'><strong>Unable to save record!</strong></div>";
+        }
 
     } 
     catch (Exception $e)
@@ -40,6 +55,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
         <div class="container mt-5 mb-5 d-flex justify-content-center">
             <div class="card w-50">
                 <div class="card-body">
+                    <?php echo $msg ?>
                     <form action="#" method="POST">
                         <div class="form-group">
                             <!-- Customer Name -->
