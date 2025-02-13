@@ -61,15 +61,26 @@
                             echo"<td>{$PostalCode}</td>";
                             echo"<td>{$Country}</td>";
                             echo"<td>";
-                                echo'<button type="button" class="btn btn-primary btn-sm">Add</button>';    
+                                echo'<button type="button" class="btn btn-primary btn-sm">Info</button>';    
                                 echo'<button type="button" class="btn btn-warning btn-sm">Edit</button>';
-                                echo'<button type="button" class="btn btn-danger btn-sm">Del</button>';
+                                echo"<a href='#' onclick='delete_user({$Id});' class='btn btn-danger btn-sm'>Del</a>";
                             echo"</td>";
                         echo"</tr>";
                       }
                     ?>
-
                 </tbody>
+                <script>
+                    function delete_user(id) 
+                    {
+                        //alert("hi delete");
+                        var answer = confirm (id + " Are you sure ?")
+                        if(answer)
+                        {
+                            window.location="delete.php?id="+id;
+                        }
+                    
+                    }    
+                </script>
             </table>
         </div>
     </body>
