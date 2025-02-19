@@ -1,0 +1,102 @@
+<?php
+try
+{
+    //include database connection
+    include "config/dbConfig.php";
+
+    $id = isset($_GET['id']) ? $_GET['id'] : die("Id not found.");
+    $query = "SELECT CustomerName, ContactName, Address, City, PostalCode, Country FROM customerinfo WHERE Id = ? LIMIT 0,1";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(1, $id);
+    $stmt->execute();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    // echo "<pre>";
+    // print_r($row);
+    // echo "</pre>";
+    $customerName = $row["CustomerName"];
+    $contactName = $row["ContactName"];
+    $address = $row["Address"];
+    $city = $row["City"];
+    $postalCode = $row["PostalCode"];
+    $country = $row["Country"];
+
+
+}
+catch(PDOException $e) 
+{
+    echo "Error : " .$e->getMessage();
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+     <div class="container mt-5 mb-5 d-flex justify-content-center">
+            <div class="card w-50">
+                <div class="card-body">
+                    <!-- database access message -->
+                    <?php //echo $msg; ?>
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <!-- Customer Name -->
+                            <div class="form-group mt-2">
+                                <label for="CustomerName" class="form-label">Customer Name:</label>
+                                <input type="text" class="form-control" name="CustomerName" id="CustomerName" maxlength="25" value="<?php echo $customerName ?>">
+                                <span class="text-danger"><?php // echo $errors['CustomerName'] ?? ''; ?></span>
+                            </div>
+
+                            <!-- Contact Name -->
+                            <div class="form-group mt-2">
+                                <label for="ContactName" class="form-label">Contact Name:</label>
+                                <input type="text" class="form-control" name="ContactName" id="ContactName" maxlength="25" value="<?php echo $contactName ?>">
+                                <span class="text-danger"><?php // echo $errors['ContactName'] ?? ''; ?></span>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="form-group mt-2">
+                                <label for="Address" class="form-label">Address:</label>
+                                <input type="text" class="form-control" name="Address" id="Address" maxlength="200" value="<?php echo $address ?>">
+                                <span class="text-danger"><?php // echo $errors['Address'] ?? ''; ?></span>
+                            </div>
+
+                            <!-- City -->
+                            <div class="form-group mt-2">
+                                <label for="City" class="form-label">City:</label>
+                                <input type="text" class="form-control" name="City" id="City" maxlength="100" value="<?php echo $city ?>">
+                                <span class="text-danger"><?php // echo $errors['City'] ?? ''; ?></span>
+                            </div>
+
+                            <!-- Postal Code -->
+                            <div class="form-group mt-2">
+                                <label for="PostalCode" class="form-label">Postal Code:</label>
+                                <input type="text" class="form-control" name="PostalCode" id="PostalCode" maxlength="10" value="<?php echo $postalCode ?>">
+                                <span class="text-danger"><?php // echo $errors['PostalCode'] ?? ''; ?></span>
+                            </div>
+
+                            <!-- Country -->
+                            <div class="form-group mt-2">
+                                <label for="Country" class="form-label">Country:</label>
+                                <input type="text" class="form-control" name="Country" id="Country" maxlength="100" value="<?php echo $country ?>">
+                                <span class="text-danger"><?php // echo $errors['Country'] ?? ''; ?></span>
+                            </div>
+
+                            <div class="form-group mt-2 d-flex justify-content-center">
+                                <button class="btn btn-primary">Add</button>
+                                <a href=index.php class="btn btn-danger ms-3">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

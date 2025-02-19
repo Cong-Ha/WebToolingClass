@@ -172,6 +172,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
                                 <button class="btn btn-primary">Add</button>
                                 <a href=index.php class="btn btn-danger ms-3">Cancel</a>
                             </div>
+                        </div>
                     </form>
                 </div>
             </div>

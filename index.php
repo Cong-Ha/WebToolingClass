@@ -62,7 +62,7 @@
                             echo"<td>{$Country}</td>";
                             echo"<td>";
                                 echo'<button type="button" class="btn btn-primary btn-sm">Info</button>';    
-                                echo'<button type="button" class="btn btn-warning btn-sm">Edit</button>';
+                                echo"<a href='edit.php?id={$Id}' class='btn btn-warning btn-sm'>Edit</a>";
                                 echo"<a href='#' onclick='delete_user({$Id});' class='btn btn-danger btn-sm'>Del</a>";
                             echo"</td>";
                         echo"</tr>";
